@@ -25,35 +25,34 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               TextFormField(
-                  maxLength: 10,
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _messageController,
-                  // onChanged: (value) {
-                  //   log("Val: $value");
-                  //   setState(() {});
-                  // },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter a message";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: "Enter your message",
-                    labelStyle: TextStyle(color: Colors.blue),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      borderSide: BorderSide(color: Colors.blue, width: 2),
+                keyboardType: TextInputType.emailAddress,
+                controller: _messageController,
+                // onChanged: (value) {
+                //   log("Val: $value");
+                //   setState(() {});
+                // },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter a message";
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  labelText: "Enter your message",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
+                    borderSide: BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue, width: 2),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
-                  )),
+                  ),
+                ),
+              ),
               const SizedBox(height: 15),
               GestureDetector(
                 onTap: () {
