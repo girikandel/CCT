@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:message_app/custom_field_widget.dart';
-import 'package:message_app/home_page.dart';
-import 'package:message_app/signup_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -19,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login Page"),
+        title: const Text("SignUp Page"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -35,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const Text(
-                "Welcome Back,",
+                "Sign Up Here,",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -46,6 +44,17 @@ class _LoginPageState extends State<LoginPage> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    CustomFieldWidget(
+                      label: "Name",
+                      controller: emailController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please enter a name";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10),
                     CustomFieldWidget(
                       label: "Email",
                       controller: emailController,
@@ -81,27 +90,21 @@ class _LoginPageState extends State<LoginPage> {
                         if (_formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Login Successful"),
+                              content: Text("Signup Successful"),
                             ),
                           );
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const HomePage()));
                         }
                       },
-                      child: const Text("Login"),
+                      child: const Text("SignUp"),
                     ),
                     const SizedBox(height: 40),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const SignupPage()));
+                        Navigator.pop(context);
+                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const LoginPage()));
                       },
                       child: const Text(
-                        "Don't have an account? Sign up",
+                        "Already have an account? Login",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
