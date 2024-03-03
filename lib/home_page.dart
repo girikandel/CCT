@@ -1,6 +1,7 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
+import 'package:message_app/add_edit_page.dart';
 import 'package:message_app/note_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,10 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _messageController = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notes App"),
@@ -46,7 +46,13 @@ class _HomePageState extends State<HomePage> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const AddEditPage()))
+              .then((value) {
+            setState(() {});
+          });
+        },
         child: const Icon(Icons.add),
       ),
     );

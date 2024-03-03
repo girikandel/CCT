@@ -5,12 +5,14 @@ class CustomFieldWidget extends StatelessWidget {
   final Function validator;
   final TextEditingController controller;
   final bool obsecureText;
+  final int maxLines;
   const CustomFieldWidget({
     super.key,
     required this.label,
     required this.validator,
     required this.controller,
     this.obsecureText = false,
+    this.maxLines = 1,
   });
 
   @override
@@ -20,6 +22,7 @@ class CustomFieldWidget extends StatelessWidget {
       controller: controller,
       validator: (value) => validator(value),
       obscureText: obsecureText,
+      maxLines: maxLines,
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(
