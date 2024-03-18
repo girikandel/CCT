@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:message_app/add_edit_page.dart';
-import 'package:message_app/note_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:message_app/post_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,48 +10,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<PostModel> posts = [];
+  final url = "https://jsonplaceholder.typicode.com/posts";
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    final response = await http.get(Uri.parse(url));
+    posts = postModelFromJson(response.body);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notes App"),
+        title: Text('Home Page'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: notes.isEmpty
-            ? const Center(
-                child: Text("No notes found!!!"),
-              )
-            : ListView.builder(
-                itemCount: notes.length,
-                itemBuilder: (context, ind) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(notes[ind].title ?? ""),
-                      subtitle: Text(notes[ind].description ?? ''),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            notes.removeAt(ind);
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const AddEditPage()))
-              .then((value) {
-            setState(() {});
-          });
+      body: ListView.builder(
+        itemCount: posts.length,
+        itemBuilder: (cxt, ind) {
+          return Card(
+            child: Column(
+              children: [
+                Text(posts[ind].title),
+                Text(posts[ind].body),
+              ],
+            ),
+          );
         },
-        child: const Icon(Icons.add),
       ),
     );
   }
